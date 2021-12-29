@@ -81,7 +81,7 @@ for stoner in stones[0:2]:
 favourite_band = stones # This just makes favourite_band point t stones... doesn't create a new list
 print(f"Favourite Band: {favourite_band}")
 stones.append("Mick Taylor")
-print(f"With appended to original: {favourite_band}")	# Proof. Modified STONES list but outputed FAVOURITE_BAND, which was modified too
+print(f"With appended to original: {favourite_band}")	# Changed STONES list but out FAVOURITE_BAND, which was modified too
 print(f"Stones original: {stones}\n")
 del stones[-1]
 favourite_band = stones[:]
@@ -120,6 +120,67 @@ alien_0 = {'x_pos':13,
 print(alien_0['x_pos'])
 print(alien_0.get('y_pos',0))
 
-for a, b in alien_0.items():
+for a, b in sorted(alien_0.items()):
 	print(f"Key: {a}")
 	print(f"Value: {b}\n")
+
+# Create a list of aliens
+aliens = []
+
+for alien_num in range(30):
+	new_alien = {'color':'green', 'points':5, 'speed':'slow'}
+	aliens.append(new_alien)
+
+for alien in aliens[:5]:
+	print(alien)
+
+print(f"Total number of aliens created: {len(aliens)}\n")
+
+# Append dictionaries to list
+stones = []
+stones.append({'Name': 'Keith Richards', 'Instrument': 'Guitar'})
+stones.append({'Name': 'Mick Jagger', 'Instrument': 'Singer'})
+
+for stoner in stones:
+	for key, value in stoner.items():
+		print(f"{key}: {value}")
+	print("\n")
+
+msg = input("What's your name? ")
+print(f"Hi {msg}")
+
+age = int(input("enter your age: "))
+print(age)
+
+pizzas = {}
+flag = True
+
+while flag:
+	msg = input("Would you like a Pizza (Y/N)? ").upper()
+
+	if msg == 'N':
+		flag = False
+	else:
+		flag = True
+
+		pizzas['SIZE'] = input("Size (L/M/S): ").upper()
+		print(f"{pizzas['SIZE']} selected")
+
+		topping = input("Would you like any toppings (Y/N)? ").upper()
+
+		if topping == 'Y':
+			toppings_flag = ""
+			cnt = 1
+			pizzas['TOPPINGS'] = []
+
+		while toppings_flag != "N":
+			topping = input(f"Please enter your {cnt} topping: ").upper()
+			pizzas['TOPPINGS'].append(topping)
+
+			toppings_flag = input("Would you like any other toppings (Y/N)? ").upper()
+
+			cnt += 1
+
+		print("Here is your order: ")
+		for key, value in pizzas.items():
+			print(f"{key} {value}")
