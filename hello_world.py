@@ -184,3 +184,63 @@ while flag:
 		print("Here is your order: ")
 		for key, value in pizzas.items():
 			print(f"{key} {value}")
+
+# Page 137
+def make_shirt(size, text):
+	print(f"Size will be: {size} and text will be '{text}'")
+
+make_shirt(18, "Stones!")
+
+# Page 142
+def make_album(artist_name, album_title, num_songs=None):
+	if num_songs:
+		album = {'ARTIST_NAME': artist_name, 'TITLE': album_title, 'NUM_SONGS': num_songs}
+	else:
+		album = {'ARTIST_NAME': artist_name, 'TITLE': album_title}
+	return album
+
+album = make_album('Rolling Stones','Sticky Fingers')
+print(album)
+
+print(f"{make_album('Rolling Stones','Sticky Fingers',9)}")
+
+# Page 146
+def send_messages(msgs_to_send, sent_msgs):
+	while msgs_to_send:
+		msg = msgs_to_send.pop();
+		sent_msgs.append(msg)
+		print(msg)
+
+msgs_to_send = ["HEY", "YO"]
+sent_msgs = []
+
+send_messages(msgs_to_send, sent_msgs)
+print(f"Messages left to send: {msgs_to_send}")
+print(f"Messages sent: {sent_msgs}")
+
+msgs_to_send = ["HEY", "YO"]
+sent_msgs = []
+
+send_messages(msgs_to_send[:], sent_msgs)
+print(f"Messages left to send: {msgs_to_send}")
+print(f"Messages sent: {sent_msgs}")
+
+# Page 150
+def sandwhich_builder(*items):
+	for item in items:
+		sandwhich.append(item)
+
+sandwhich = []
+sandwhich_builder('Tomato','bacon')
+print(f"Your 1st sandwhich is made of: {sandwhich}")
+sandwhich = []
+sandwhich_builder('Tomato','bacon', 'letuce')
+print(f"Your 2nd sandwhich is made of: {sandwhich}")
+
+def car_info(manufacturer, model_name, **args):
+	args['manufacturer'] = manufacturer
+	args['model_name'] = model_name
+	return args;
+
+car = car_info('subaru', 'outback', color='blue', tow_package=True)
+print(car)
