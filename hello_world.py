@@ -149,8 +149,12 @@ for stoner in stones:
 msg = input("What's your name? ")
 print(f"Hi {msg}")
 
-age = int(input("enter your age: "))
-print(age)
+try:
+	age = int(input("Enter your age: "))
+except ValueError:
+	print("Incorrect value for age")
+else:
+	print(age)
 
 pizzas = {}
 flag = True
@@ -211,7 +215,7 @@ def send_messages(msgs_to_send, sent_msgs):
 		sent_msgs.append(msg)
 		print(msg)
 
-msgs_to_send = ["HEY", "YO"]
+msgs_to_send = ["HEY", "YO"]					# lists
 sent_msgs = []
 
 send_messages(msgs_to_send, sent_msgs)
@@ -226,9 +230,9 @@ print(f"Messages left to send: {msgs_to_send}")
 print(f"Messages sent: {sent_msgs}")
 
 # Page 150
-def sandwhich_builder(*items):
-	for item in items:
-		sandwhich.append(item)
+def sandwhich_builder(*items):						# items becomes a tuple (list of items that shouldn't be changed) - Looks just like a list but uses () instead of []
+	for item in items:								# the * makes it optional
+		sandwhich.append(item)						# if wanted to just send a list, just put items withouth the "*" and in the call, send a list between []
 
 sandwhich = []
 sandwhich_builder('Tomato','bacon')
@@ -237,10 +241,104 @@ sandwhich = []
 sandwhich_builder('Tomato','bacon', 'letuce')
 print(f"Your 2nd sandwhich is made of: {sandwhich}")
 
-def car_info(manufacturer, model_name, **args):
+def car_info(manufacturer, model_name, **args):		# Args becomes a dictionary (key-value pair)
 	args['manufacturer'] = manufacturer
 	args['model_name'] = model_name
 	return args;
 
 car = car_info('subaru', 'outback', color='blue', tow_package=True)
 print(car)
+
+print("Page 162")
+
+class Restaurant:
+	"""Page 162"""
+
+	def __init__(self,restaurant_name,cuisine_type):
+		self.restaurant_name = restaurant_name
+		self.cuisine_type = cuisine_type
+		self.number_served = 0
+
+	def describe_restaurant(self):
+		print(f"{self.restaurant_name}, {self.cuisine_type}")
+
+	def open_restaurant(self):
+		print("Restaurant is opened")
+
+	def set_number_served(self, num):
+		if num >= self.number_served:
+			self.number_served = num
+		else:
+			print(f"Invalid number served value: {num}")
+
+	def increment_served(self):
+		self.number_served += 1
+
+
+new_restaurant = Restaurant("Mcdonald","French")
+new_restaurant.describe_restaurant()
+new_restaurant.open_restaurant()
+new_restaurant.set_number_served(10)
+print(new_restaurant.number_served)
+new_restaurant.increment_served()
+print(new_restaurant.number_served)
+
+print("Page 173")
+class IceCreamStand(Restaurant):
+	"""Page 173"""
+
+	def __init__(self,restaurant_name, cuisine_type, flavors):		# flavors is a list and is not optional (must have at least 1 flavor if you're a ice cream stand
+		super().__init__(restaurant_name, cuisine_type)
+		self.flavors = flavors
+
+	def get_flavors(self):
+		for flavor in self.flavors:
+			print(flavor)
+
+new_ice_cream_stand = IceCreamStand("Dairy Queen", "Ice Cream", ['Vanilla', 'Chocolate'])
+new_ice_cream_stand.get_flavors()
+
+
+print("Reading from whole file")
+with open('pi_digits.txt') as file_object:
+	contents = file_object.read().rstrip()
+print(contents)
+
+print("Reading from file - 1 line at at time")
+with open('pi_digits.txt') as file_object:
+	print(file_object)	
+	for line in file_object:
+		print(line.rstrip())
+
+# Writing to file
+with open('test.txt', 'w') as f:	# Could also do "a" to append
+	f.write("Hello")
+
+
+# Page 202
+WORD_TO_FIND = 'DICK'
+try:
+	with open("moby_dick.txt") as f:
+		i = 0
+		word_cnt = 0
+		for line in f:
+			if line.upper().count(WORD_TO_FIND):
+				print(f"Number of times word '{WORD_TO_FIND}' is found in line #{i}: {line.upper().count(WORD_TO_FIND)}")
+				word_cnt += 1
+			i += 1
+		print(f"Total number of lines: {i} - Total number of time found work {WORD_TO_FIND}: {word_cnt}")
+except FileNotFoundError:
+	pass
+else:
+	print(contents.count('dick'))
+
+# Write and read json files
+import json
+
+numbers_out = [1, 2, 3, 4, 5, 6 ,7]
+with open('numbers.json', 'w') as f:
+	json.dump(numbers_out, f)
+
+with open('numbers.json', 'r') as f:
+	numbers_in = json.load(f)
+print(f"Numbers read from json file: {numbers_in}")
